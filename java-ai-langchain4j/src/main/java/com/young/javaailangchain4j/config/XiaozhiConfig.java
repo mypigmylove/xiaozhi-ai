@@ -1,5 +1,6 @@
 package com.young.javaailangchain4j.config;
 
+import com.young.javaailangchain4j.store.MongoChatMemoryStore;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.loader.FileSystemDocumentLoader;
 import dev.langchain4j.data.segment.TextSegment;
@@ -21,14 +22,15 @@ import java.util.List;
 @Configuration
 public class XiaozhiConfig {
 
-//    @Autowired
-//    private MongoChatMemoryStore mongoChatMemoryStore;
+    @Autowired
+    private MongoChatMemoryStore mongoChatMemoryStore;
 
     @Bean
     ChatMemoryProvider chatMemoryProviderXiaozhi() {
         return memoryId -> MessageWindowChatMemory.builder()
                 .id(memoryId)
                 .maxMessages(20)
+                .chatMemoryStore(mongoChatMemoryStore)
                 .build();
     }
 
